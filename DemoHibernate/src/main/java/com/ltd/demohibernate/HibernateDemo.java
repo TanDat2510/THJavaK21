@@ -17,7 +17,7 @@ import java.util.Map;
 
 /**
  *
- * @author admin
+ * @author TAN DAT
  */
 public class HibernateDemo {
 
