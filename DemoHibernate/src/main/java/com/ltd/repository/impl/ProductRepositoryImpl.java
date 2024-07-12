@@ -18,12 +18,11 @@ import org.hibernate.Session;
 
 /**
  *
- * @author admin
+ * @author TAN DAT
  */
 public class ProductRepositoryImpl {
-
     private static final int PAGE_SIZE = 4;
-
+    
     public List<Product> getProducts(Map<String, String> params) {
         try ( Session s = HibernateUtils.getFactory().openSession()) {
             CriteriaBuilder b = s.getCriteriaBuilder();
@@ -31,36 +30,64 @@ public class ProductRepositoryImpl {
             Root root = q.from(Product.class);
             q.select(root);
 
-            List<Predicate> predicates = new ArrayList<>();
             if (params != null) {
+                List<Predicate> predicates = new ArrayList<>();
                 String kw = params.get("q");
                 if (kw != null && !kw.isEmpty()) {
                     Predicate p1 = b.like(root.get("name"), String.format("%%%s%%", kw));
                     predicates.add(p1);
                 }
+
                 String fromPrice = params.get("fromPrice");
                 if (fromPrice != null && !fromPrice.isEmpty()) {
                     Predicate p2 = b.greaterThanOrEqualTo(root.get("price"), Double.parseDouble(fromPrice));
                     predicates.add(p2);
                 }
+
+                String toPrice = params.get("toPrice");
+                if (toPrice != null && !toPrice.isEmpty()) {
+                    Predicate p3 = b.lessThanOrEqualTo(root.get("price"), Double.parseDouble(toPrice));
+                    predicates.add(p3);
+                }
+
+                String cateId = params.get("cateId");
+                if (cateId != null && !cateId.isEmpty()) {
+                    Predicate p4 = b.equal(root.get("category"), Integer.parseInt(cateId));
+                    predicates.add(p4);
+                }
+
                 q.where(predicates.toArray(Predicate[]::new));
             }
 
-
             Query query = s.createQuery(q);
-            
-            if(params != null){
+
+            if (params != null) {
                 String page = params.get("page");
-                if(page != null && !page.isEmpty()){
+                if (page != null && !page.isEmpty()) {
                     int p = Integer.parseInt(page);
-                    int start = p - 1 * PAGE_SIZE;
+                    int start = (p - 1) * PAGE_SIZE;
+                    
                     query.setFirstResult(start);
                     query.setMaxResults(PAGE_SIZE);
-               
                 }
             }
+            
             return query.getResultList();
         }
     }
-
+    
+    public void addOrUpdate(Product p) {
+        try (Session s = HibernateUtils.getFactory().openSession()) {
+            if (p.getId() != null)
+                s.update(s);
+            else
+                s.save(s);
+        }
+    }
+    
+    public Product getProductById(int id) {
+        try (Session s = HibernateUtils.getFactory().openSession()) {
+            return s.get(Product.class, id);
+        }
+    }
 }

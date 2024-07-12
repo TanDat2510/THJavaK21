@@ -33,7 +33,7 @@ public class HibernateUtils {
         props.put(Environment.DRIVER, "com.mysql.cj.jdbc.Driver");
         props.put(Environment.URL, "jdbc:mysql://localhost/saledb");
         props.put(Environment.USER, "root");
-        props.put(Environment.PASS, "Admin@123");
+        props.put(Environment.PASS, "Tandat25102003");
         props.put(Environment.SHOW_SQL, true);
         
         conf.setProperties(props);

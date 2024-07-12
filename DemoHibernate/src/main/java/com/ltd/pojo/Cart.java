@@ -4,19 +4,27 @@
  */
 package com.ltd.pojo;
 
-import javax.persistence.Entity;
-
-
-
 /**
  *
- * @author admin
+ * @author TAN DAT
  */
 public class Cart {
     private int id;
     private String name;
     private int quantity;
-    private int unitprice;
+    private Long unitPrice;
+
+    public Cart(int id, String name, int quantity, Long unitPrice) {
+        this.id = id;
+        this.name = name;
+        this.quantity = quantity;
+        this.unitPrice = unitPrice;
+    }
+
+    public Cart() {
+    }
+    
+    
 
     /**
      * @return the id
@@ -61,17 +69,16 @@ public class Cart {
     }
 
     /**
-     * @return the unitprice
+     * @return the unitPrice
      */
-    public int getUnitprice() {
-        return unitprice;
+    public Long getUnitPrice() {
+        return unitPrice;
     }
 
     /**
-     * @param unitprice the unitprice to set
+     * @param unitPrice the unitPrice to set
      */
-    public void setUnitprice(int unitprice) {
-        this.unitprice = unitprice;
+    public void setUnitPrice(Long unitPrice) {
+        this.unitPrice = unitPrice;
     }
-    
 }
