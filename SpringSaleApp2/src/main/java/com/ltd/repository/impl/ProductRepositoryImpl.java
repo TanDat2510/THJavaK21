@@ -60,7 +60,7 @@ public class ProductRepositoryImpl implements ProductRepository{
 
                 String cateId = params.get("cateId");
                 if (cateId != null && !cateId.isEmpty()) {
-                    Predicate p4 = b.equal(root.get("category"), Integer.parseInt(cateId));
+                    Predicate p4 = b.equal(root.get("categoryId"), Integer.parseInt(cateId));
                     predicates.add(p4);
                 }
 
