@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+"http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+    <definition name="baseLayout" template="/WEB_INF/layout/base.jsp">
+        <put-attribute name="tiles" value="..."/>
+        <put-attribute name="header" value="/WEB_INF/layout/header.jsp"/>
+        <put-attribute name="footer" value="/WEB_INF/layout/footer.jsp"/>
+        <put-attribute name="content" value="..."/>
+
+    </definition>
+    <definition name="home" extends="baseLayout" >
+        <put-attribute name="tiles" value="Trang Chu" />
+        <put-attribute name="content" value="/WEB_INF/pages/index.jsp" />
+
+    </definition>
+    <definition name="products" extends="baseLayout" >
+        <put-attribute name="tiles" value="Quan Tri San Pham" />
+        <put-attribute name="content" value="/WEB_INF/pages/products.jsp" />
+
+    </definition>
+</tiles-definitions>
